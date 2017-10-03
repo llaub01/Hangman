@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+    <title>Hangman!</title>
+  </head>
+  
+  <body>
+
+  	<div class="jumbotron">
+  		<div class="container">
+    		<h1>Hangman</h1>
+    		<p>...Kansas City style.</p>
+  		</div>
+	</div>
+
+	<div class="row">
+		<div class="page-header">
+			<div class="container">
+  				<h1>Example page header <small>Subtext for header</small></h1>
+  			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+    				Panel content
+  				</div>
+  			</div>
+  		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+    				Panel content
+  				</div>
+  			</div>
+  		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-default">
+  				<div class="panel-body">
+    				Panel content
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+
+    <script language="javascript" type="text/javascript">
+    	// container for game
+    	var gameTime = function() {
+    		var words = ["barbeque", "royals", "chiefs", "jazz", "sporting", "kauffman", "disney", "truman", "boulevard", "shuttlecock", "plaza", "fountains"];
+    		var guesses = 10;
+    		var pressed;
+    		var pickedWord;
+
+
+    		// pick a word from words array 
+    		var pickWord = function(hangmanWord) {
+    			var pickedWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
+    			console.log("Randomly picked: " + pickedWord);
+    			return pickedWord;
+    		} // end of pickWord
+
+    		// calc and write the blank spaces for the word
+    		var writeBoard = function(words) {
+    			for (i = 0; i < words.length; i++) {
+    				return " _ ";
+    				console.log(" _ ");
+    			}
+    		} // end of writeBoard
+
+    		document.onkeyup = function(event) {
+    			return event.key;
+    			console.log(event.key + " pressed");
+    		} // end keypress event
+
+    		// compare letter pressed with letters in pickedWord
+    		var compare = function(event, word, guesses) { // do I need to split this to pull all properties in at once
+    			wordArr = word.split("");
+    			for (i = 0; i < wordArr.length; i++) {
+    				if (pressed.key === wordArr[j]) {
+    					return wordArr[j];
+    					console.log("Found " + wordArr[j]);
+    				}
+    				else {
+    					guesses = guesses - 1;
+    					return guesses;
+    					console.log("Guesses left: " + guesses);
+    				}
+    			}
+    		}  // end of keyPressed
+
+    		// document.onkeyup = function(pressed, word, guesses) { // do I need to split this to pull all properties in at once
+    		// 	wordArr = word.split("");
+    		// 	for (i = 0; i < wordArr.length; i++) {
+    		// 		if (pressed.key === wordArr[j]) {
+    		// 			return wordArr[j];
+    		// 			console.log("Found " + wordArr[j]);
+    		// 		}
+    		// 		else {
+    		// 			guesses = guesses - 1;
+    		// 			return guesses;
+    		// 			console.log("Guesses left: " + guesses);
+    		// 		}
+    		// 	}
+    		// }  // end of keyPressed
+
+    		// call some functions
+    		pickWord(words);
+    		writeBoard(pickedWord);
+
+    	} // end of gameTime function
+    	gameTime();
+    </script>
+</body>
