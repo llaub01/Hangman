@@ -60,67 +60,82 @@
     	// container for game
     	var gameTime = function() {
     		var words = ["barbeque", "royals", "chiefs", "jazz", "sporting", "kauffman", "disney", "truman", "boulevard", "shuttlecock", "plaza", "fountains"];
-    		var guesses = 10;
     		var pressed;
     		var pickedWord;
+    		var wordLength;
+   			var letterPressed;
+  			var lettersGeussed = [ ]; 
 
+  			// pick word from array
+  			var pickedWord = words[Math.floor(Math.random() * words.length)];
+    		console.log("Randomly picked: " + pickedWord);
 
-    		// pick a word from words array 
-    		var pickWord = function(hangmanWord) {
-    			var pickedWord = hangmanWord[Math.floor(Math.random() * hangmanWord.length)];
-    			console.log("Randomly picked: " + pickedWord);
-    			return pickedWord;
-    		} // end of pickWord
-
-    		// calc and write the blank spaces for the word
-    		var writeBoard = function(words) {
-    			for (i = 0; i < words.length; i++) {
-    				return " _ ";
-    				console.log(" _ ");
+    		// write the game board
+    		var writeBoard = function(word) {
+    			var blankedWord = [ ];
+    			var guessesLeft = 10;
+    			
+    			// do something with number of letters in word
+    			for (i = 0; i < word.length; i++) {
+    				blankedWord[i] = "_";
+    				console.log("_");
     			}
+
+    			wordArr = word.split("");
+
+    			document.onkeyup = function(event) {
+    				letterPressed = event.key;
+    				console.log(event.key + " pressed");
+    				
+    				var checkLetter = true;
+
+    				if (checkLetter) {
+    					var letterFound = false;
+    					
+    					// compare letter pressed with word array
+    					for (i = 0; i < wordArr.length; i++) {
+    						if (letterPressed === wordArr[i]) {
+    					
+    						// if (letterFound !== false && letterFound === false) {
+    							blankedWord[i] = letterPressed;
+    							console.log("Found " + wordArr[i]);
+
+    							letterFound = true;
+    							
+    							// write out the word with new letters 
+    							if (letterFound) {
+    								for (j = 0; j < wordArr.length; j++) {
+    									console.log(blankedWord[j]);
+    								}
+    							}
+    							else if (letterfound && (i + 1) === wordArr.length) { // add you win code here
+    								console.log("You win!");
+    							}
+    						}
+    						else if ((i + 1) === wordArr.length && letterFound === false) {
+    							guessesLeft -= 1;
+    							if (guessesLeft === 0) {
+    								console.log("Didn't find " + letterPressed);
+    								console.log("Guesses left: " + guessesLeft);	
+    								console.log("You lose! Better luck next time.")
+    							}
+    							else {
+    								console.log("Didn't find " + letterPressed);
+    								console.log("Guesses left: " + guessesLeft);	
+    							}
+    						} //end of else if
+    					} // end of wordArr for
+    				} // end of checkletter if
+    			} // end keypress event
     		} // end of writeBoard
 
-    		document.onkeyup = function(event) {
-    			return event.key;
-    			console.log(event.key + " pressed");
-    		} // end keypress event
-
-    		// compare letter pressed with letters in pickedWord
-    		var compare = function(event, word, guesses) { // do I need to split this to pull all properties in at once
-    			wordArr = word.split("");
-    			for (i = 0; i < wordArr.length; i++) {
-    				if (pressed.key === wordArr[j]) {
-    					return wordArr[j];
-    					console.log("Found " + wordArr[j]);
-    				}
-    				else {
-    					guesses = guesses - 1;
-    					return guesses;
-    					console.log("Guesses left: " + guesses);
-    				}
-    			}
-    		}  // end of keyPressed
-
-    		// document.onkeyup = function(pressed, word, guesses) { // do I need to split this to pull all properties in at once
-    		// 	wordArr = word.split("");
-    		// 	for (i = 0; i < wordArr.length; i++) {
-    		// 		if (pressed.key === wordArr[j]) {
-    		// 			return wordArr[j];
-    		// 			console.log("Found " + wordArr[j]);
-    		// 		}
-    		// 		else {
-    		// 			guesses = guesses - 1;
-    		// 			return guesses;
-    		// 			console.log("Guesses left: " + guesses);
-    		// 		}
-    		// 	}
-    		// }  // end of keyPressed
-
     		// call some functions
-    		pickWord(words);
     		writeBoard(pickedWord);
 
     	} // end of gameTime function
+    	
+    	// call gametime
     	gameTime();
+    
     </script>
 </body>
