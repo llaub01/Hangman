@@ -6,9 +6,11 @@
 
     <link rel="stylesheet" type="text/css" href="http://meyerweb.com/eric/tools/css/reset/reset.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+	<link rel="stylesheet" href="css/style.css">
 
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <title>Hangman!</title>
   </head>
@@ -25,7 +27,8 @@
 	<div class="row">
 		<div class="page-header">
 			<div class="container">
-  				<h1>Example page header <small>Subtext for header</small></h1>
+				<button onclick="gameTime()" type="button" class="btn btn-start">Start Game!</button>
+  				<p>Hit the button to start the game...</p>
   			</div>
 		</div>
 	</div>
@@ -34,7 +37,9 @@
 		<div class="col-md-3">
 			<div class="panel panel-default">
   				<div class="panel-body">
-    				Panel content
+  					<div id="win-lose">
+    					
+					</div>    					
   				</div>
   			</div>
   		</div>
@@ -42,7 +47,14 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-body">
-    				Panel content
+  					<h4><br> What's the word? <br></h4>
+  					<div id="game-body">
+  						<br>
+    				</div>
+    				<h4><br> You've guessed: <br></h4>
+    				<div id="guessed-letters">
+    					<br>
+    				</div>
   				</div>
   			</div>
   		</div>
@@ -50,7 +62,10 @@
 		<div class="col-md-3">
 			<div class="panel panel-default">
   				<div class="panel-body">
-    				Panel content
+  					<h4>Guesses left: <br></h4>
+  					<div id=guesses-left>
+  						<br>
+    				</div>
   				</div>
   			</div>
   		</div>
@@ -65,27 +80,35 @@
     		var wordLength;
    			var letterPressed;
   			var lettersGeussed = [ ]; 
+  			var blankedWord = [ ];
+    		var guessesLeft = 10;
 
   			// pick word from array
   			var pickedWord = words[Math.floor(Math.random() * words.length)];
     		console.log("Randomly picked: " + pickedWord);
+    		document.getElementById("game-body").innerHTML += "Randomly picked: " + pickedWord + "<br>";
 
     		// write the game board
     		var writeBoard = function(word) {
-    			var blankedWord = [ ];
-    			var guessesLeft = 10;
+    			// var blankedWord = [ ];
+    			// var guessesLeft = 10;
+    			document.getElementById("guesses-left").innerHTML = guessesLeft;   								
     			
+
     			// do something with number of letters in word
     			for (i = 0; i < word.length; i++) {
     				blankedWord[i] = "_";
     				console.log("_");
+    				document.getElementById("game-body").innerHTML += " " + blankedWord[i];
     			}
 
     			wordArr = word.split("");
+    			document.getElementById("game-body").innerHTML += "<br>";
 
     			document.onkeyup = function(event) {
     				letterPressed = event.key;
     				console.log(event.key + " pressed");
+    				document.getElementById("guessed-letters").innerHTML += event.key + " ";
     				
     				var checkLetter = true;
 
@@ -96,7 +119,6 @@
     					for (i = 0; i < wordArr.length; i++) {
     						if (letterPressed === wordArr[i]) {
     					
-    						// if (letterFound !== false && letterFound === false) {
     							blankedWord[i] = letterPressed;
     							console.log("Found " + wordArr[i]);
 
@@ -104,12 +126,15 @@
     							
     							// write out the word with new letters 
     							if (letterFound) {
+    								document.getElementById("game-body").innerHTML = " ";
     								for (j = 0; j < wordArr.length; j++) {
     									console.log(blankedWord[j]);
+    									document.getElementById("game-body").innerHTML += blankedWord[j] + " ";
     								}
     							}
     							else if (letterfound && (i + 1) === wordArr.length) { // add you win code here
     								console.log("You win!");
+    								document.getElementById("win-lose").innerHTML += "You win!";
     							}
     						}
     						else if ((i + 1) === wordArr.length && letterFound === false) {
@@ -118,10 +143,15 @@
     								console.log("Didn't find " + letterPressed);
     								console.log("Guesses left: " + guessesLeft);	
     								console.log("You lose! Better luck next time.")
+    								// document.getElementById("guessed-letters").innerHTML += letterPressed + " ";
+    								document.getElementById("guesses-left").innerHTML = guessesLeft;	
+    								document.getElementById("win-lose").innerHTML += "You lose! Better luck next time.";
     							}
     							else {
     								console.log("Didn't find " + letterPressed);
     								console.log("Guesses left: " + guessesLeft);	
+									// document.getElementById("guessed-letters").innerHTML += letterPressed + " ";
+    								document.getElementById("guesses-left").innerHTML = guessesLeft;   								
     							}
     						} //end of else if
     					} // end of wordArr for
@@ -135,7 +165,7 @@
     	} // end of gameTime function
     	
     	// call gametime
-    	gameTime();
+    	// $("btn-start").click(gameTime());
     
     </script>
 </body>
