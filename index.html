@@ -64,7 +64,7 @@
   				<div class="panel-body">
   					<h4>Guesses left: <br></h4>
   					<div id=guesses-left>
-  						<h4> <br> 10 </h4>
+  						<h4> <br> ? </h4>
     				</div>
   				</div>
   			</div>
@@ -85,12 +85,12 @@
   			// pick word from array
   			var pickedWord = words[Math.floor(Math.random() * words.length)];
     		console.log("Randomly picked: " + pickedWord);
+    		document.getElementById("guesses-left").innerHTML = guessesLeft;
 
     		// write the game board
     		var writeBoard = function(word) {  								
     			document.getElementById("game-body").innerHTML = " ";
     			document.getElementById("win-lose").innerHTML = " ";
-    			guessesLeft = 10;
 
     			// do something with number of letters in word
     			for (i = 0; i < word.length; i++) {
