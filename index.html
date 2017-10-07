@@ -90,6 +90,7 @@
     		var writeBoard = function(word) {  								
     			document.getElementById("game-body").innerHTML = " ";
     			document.getElementById("win-lose").innerHTML = " ";
+    			guessesLeft = 10;
 
     			// do something with number of letters in word
     			for (i = 0; i < word.length; i++) {
@@ -142,7 +143,7 @@
     						}
     						else if ((i + 1) === wordArr.length && letterFound === false) {
     							guessesLeft -= 1;
-    							if (guessesLeft === 0) {
+    							if (guessesLeft < 1) {
     								console.log("Didn't find " + letterPressed);
     								console.log("Guesses left: " + guessesLeft);	
     								console.log("You lose! Better luck next time.")
