@@ -23,4 +23,41 @@ h1 {
 .btn-start {
 	background-color: red;
 	color: white;
+	margin-bottom: 10px
+}
+
+.col-md-3 .panel {
+	height: 100px;
+	box-shadow: none;
+}
+
+.panel {
+	height: 400px;
+	border-style: none;
+}
+
+.col-md-6 .panel-default{
+	border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#game-body {
+	font-size: 48px;
+}
+
+#guessed-letters {
+	font-size: 24px;
+}
+
+#guesses-left {
+	font-size: 24px;
+}
+
+#win-lose {
+	font-size: 32px;
+	color: #ffffff;
+	background-color: red;
+    padding: 100px 65px;
+    border-radius: 50%;
+    height: 250px;
 }

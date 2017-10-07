@@ -47,13 +47,13 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
   				<div class="panel-body">
-  					<h4><br> What's the word? <br></h4>
+  					<h4> What's the word? <br></h4>
   					<div id="game-body">
-  						<br>
+  						 ...what could it be? <br>
     				</div>
     				<h4><br> You've guessed: <br></h4>
     				<div id="guessed-letters">
-    					<br>
+    					 ?
     				</div>
   				</div>
   			</div>
@@ -64,7 +64,7 @@
   				<div class="panel-body">
   					<h4>Guesses left: <br></h4>
   					<div id=guesses-left>
-  						<br>
+  						<h4> <br> 10 </h4>
     				</div>
   				</div>
   			</div>
@@ -75,35 +75,31 @@
     	// container for game
     	var gameTime = function() {
     		var words = ["barbeque", "royals", "chiefs", "jazz", "sporting", "kauffman", "disney", "truman", "boulevard", "shuttlecock", "plaza", "fountains"];
-    		var pressed;
-    		var pickedWord;
-    		var wordLength;
-   			var letterPressed;
-  			var lettersGeussed = [ ]; 
-  			var blankedWord = [ ];
-    		var guessesLeft = 10;
+    		var pickedWord; // word picked from array
+   			var letterPressed; // letter pressed by user
+  			var blankedWord = [ ]; // blanked array of word to be filled in 
+    		var guessesLeft = 10; // number of guesses left
+    		var kcmo = new Audio("images/kcmo.mp3");
+    		var lose = new Audio("images/lose.mp3");
 
   			// pick word from array
   			var pickedWord = words[Math.floor(Math.random() * words.length)];
     		console.log("Randomly picked: " + pickedWord);
-    		document.getElementById("game-body").innerHTML += "Randomly picked: " + pickedWord + "<br>";
 
     		// write the game board
-    		var writeBoard = function(word) {
-    			// var blankedWord = [ ];
-    			// var guessesLeft = 10;
-    			document.getElementById("guesses-left").innerHTML = guessesLeft;   								
-    			
+    		var writeBoard = function(word) {  								
+    			document.getElementById("game-body").innerHTML = " ";
+    			document.getElementById("win-lose").innerHTML = " ";
 
     			// do something with number of letters in word
     			for (i = 0; i < word.length; i++) {
     				blankedWord[i] = "_";
     				console.log("_");
-    				document.getElementById("game-body").innerHTML += " " + blankedWord[i];
+    				document.getElementById("game-body").innerHTML += blankedWord[i] + " ";
     			}
 
     			wordArr = word.split("");
-    			document.getElementById("game-body").innerHTML += "<br>";
+    			document.getElementById("guessed-letters").innerHTML = " ";
 
     			document.onkeyup = function(event) {
     				letterPressed = event.key;
@@ -125,16 +121,23 @@
     							letterFound = true;
     							
     							// write out the word with new letters 
-    							if (letterFound) {
-    								document.getElementById("game-body").innerHTML = " ";
-    								for (j = 0; j < wordArr.length; j++) {
-    									console.log(blankedWord[j]);
-    									document.getElementById("game-body").innerHTML += blankedWord[j] + " ";
-    								}
-    							}
-    							else if (letterfound && (i + 1) === wordArr.length) { // add you win code here
+    							if (letterFound && (i + 1) === wordArr.length) { 
     								console.log("You win!");
     								document.getElementById("win-lose").innerHTML += "You win!";
+    								document.getElementById("game-body").innerHTML = " ";
+    								kcmo.play();
+    								for (j = 0; j < wordArr.length; j++) {
+    									console.log(blankedWord[j]);
+    									document.getElementById("game-body").innerHTML += blankedWord[j] + " " ;
+    								}
+    								return;
+    							}
+    							else if (letterFound) {
+    								document.getElementById("game-body").innerHTML = " ";
+    								for (k = 0; k < wordArr.length; k++) {
+    									console.log(blankedWord[k]);
+    									document.getElementById("game-body").innerHTML += blankedWord[k] + " " ;
+    								}
     							}
     						}
     						else if ((i + 1) === wordArr.length && letterFound === false) {
@@ -143,14 +146,14 @@
     								console.log("Didn't find " + letterPressed);
     								console.log("Guesses left: " + guessesLeft);	
     								console.log("You lose! Better luck next time.")
-    								// document.getElementById("guessed-letters").innerHTML += letterPressed + " ";
     								document.getElementById("guesses-left").innerHTML = guessesLeft;	
-    								document.getElementById("win-lose").innerHTML += "You lose! Better luck next time.";
+    								document.getElementById("win-lose").innerHTML += "You lose!";
+    								lose.play();
+    								return;
     							}
     							else {
     								console.log("Didn't find " + letterPressed);
     								console.log("Guesses left: " + guessesLeft);	
-									// document.getElementById("guessed-letters").innerHTML += letterPressed + " ";
     								document.getElementById("guesses-left").innerHTML = guessesLeft;   								
     							}
     						} //end of else if
@@ -163,9 +166,6 @@
     		writeBoard(pickedWord);
 
     	} // end of gameTime function
-    	
-    	// call gametime
-    	// $("btn-start").click(gameTime());
     
     </script>
 </body>
