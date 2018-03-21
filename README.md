@@ -1,2 +1,2 @@
 # Hangman
-HW 3
+Homework for week 3 of KU Full Stack Bootcamp.
