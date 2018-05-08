@@ -1,2 +1,2 @@
 # Hangman
-HTML / Javascript hangman game - KC themed.
+HTML, CSS, Javascript hangman game - KC themed
